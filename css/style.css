@@ -262,22 +262,6 @@ footer a { text-decoration: underline; text-underline-offset: 3px; }
   .grille-restaurant { grid-template-columns: repeat(2, 1fr); }
   .grille-restaurant .grande-photo { grid-column: span 2; grid-row: span 1; aspect-ratio: 16/9; }
 }
-
-@media (max-width: 720px) {
-  .menu-burger { display: flex; }
-  nav.menu {
-    position: fixed; inset: 72px 0 0 0; background: var(--sand-50);
-    flex-direction: column; align-items: flex-start; gap: 0; padding: 1.5rem 6%;
-    transform: translateX(100%); transition: transform 0.3s ease; z-index: 49;
-  }
-  nav.menu.ouvert { transform: translateX(0); }
-  nav.menu a { width: 100%; padding: 1rem 0; border-bottom: 1px solid var(--sand-100); }
-  .menu-cta { margin-top: 1rem; text-align: center; }
-  .hero-overlay { padding-bottom: 3rem; }
-  .bandeau-atouts { gap: 0.6rem 1.6rem; }
-  .grille-galerie, .grille-services-photos { grid-template-columns: repeat(2, 1fr); }
-  .grille-restaurant { grid-template-columns: repeat(2, 1fr); }
-}
 /* ===== SECTION VIDÉO DE PRÉSENTATION ===== */
 .section-video-presentation {
   padding-top: 1.5rem;
@@ -419,4 +403,61 @@ footer a { text-decoration: underline; text-underline-offset: 3px; }
   width: 24px;  /* Taille similaire à un emoji */
   height: 24px;
   object-fit: contain;
+}
+/* ===== CORRECTIFS RESPONSIVE ===== */
+
+/* Les titres ne passent plus sous l'en-tête après un clic sur le menu */
+html { scroll-padding-top: 80px; }
+
+/* À propos : repasse sur 1 colonne (la règle "côte à côte" écrasait le responsive) */
+@media (max-width: 900px) {
+  .conteneur-a-propos { grid-template-columns: 1fr; gap: 2rem; }
+  .a-propos-image img { height: auto; aspect-ratio: 4/3; }
+}
+
+/* Menu burger jusqu'à 1200px + fin du piège backdrop-filter */
+@media (max-width: 1200px) {
+  #entete { backdrop-filter: none; background: var(--sand-50); }
+  .menu-burger { display: flex; }
+  nav.menu {
+    position: fixed; inset: 72px 0 0 0; background: var(--sand-50);
+    flex-direction: column; align-items: flex-start; gap: 0; padding: 1.5rem 6%;
+    transform: translateX(100%); transition: transform 0.3s ease; z-index: 49; overflow-y: auto;
+  }
+  nav.menu.ouvert { transform: translateX(0); }
+  nav.menu a { width: 100%; padding: 1rem 0; border-bottom: 1px solid var(--sand-100); }
+  .menu-cta { margin-top: 1rem; text-align: center; }
+}
+
+/* Pas de débordement sur écran 320px */
+.grille-chambres { grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); }
+
+/* 16px minimum : évite le zoom automatique sur iPhone */
+.contact-form input, .contact-form textarea { font-size: 1rem; }
+
+/* Vidéos */
+.centre-video-pro video { object-fit: contain; }
+.carte-video-restaurant { grid-column: 1 / -1; aspect-ratio: 16/9; }
+
+/* Hero : bonne hauteur avec la barre d'adresse mobile */
+.hero { min-height: 92vh; min-height: 92svh; }
+
+/* Commodités et carte (aucun style n'existait) */
+.grille-commodites { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 1.2rem; margin-top: 2rem; }
+.carte-commodite { background: var(--white); padding: 1.3rem; border-radius: var(--rayon); box-shadow: var(--ombre); }
+.carte-commodite p { color: var(--ink-600); font-size: 0.92rem; margin-top: 0.4rem; }
+.carte-container { margin-top: 2rem; border-radius: var(--rayon); overflow: hidden; box-shadow: var(--ombre); }
+.carte-container iframe { display: block; height: clamp(280px, 50vw, 450px); }
+/* ===== DIAPORAMA DES PHOTOS DE CHAMBRES ===== */
+.carte-chambre-img img {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.9s ease, transform 0.4s ease;
+}
+.carte-chambre-img img.actif { opacity: 1; }
+.carte-chambre-img .badge { z-index: 2; }
+.carte-chambre-img {
+  border: 6px solid #1EBE5D;
+  border-bottom: none;
 }

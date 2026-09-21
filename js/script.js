@@ -70,3 +70,27 @@ formulaire?.addEventListener('submit', (e) => {
   const texte = `Bonjour, je m'appelle ${nom}${telephone ? ' (' + telephone + ')' : ''}. ${message}`;
   window.open(`https://wa.me/23565855839?text=${encodeURIComponent(texte)}`, '_blank');
 });
+// Diaporama automatique des photos de chambres
+document.querySelectorAll('.carte-chambre-img').forEach(bloc => {
+  const photos = bloc.querySelectorAll('img');
+  if (photos.length < 2) return;
+
+  let index = 0;
+  let minuteur;
+
+  const suivante = () => {
+    photos[index].classList.remove('actif');
+    index = (index + 1) % photos.length;
+    photos[index].classList.add('actif');
+  };
+  const demarrer = () => { clearInterval(minuteur); minuteur = setInterval(suivante, 4000); };
+  const arreter = () => clearInterval(minuteur);
+
+  demarrer();
+
+  // Pause au survol (souris seulement, pas sur téléphone)
+  if (window.matchMedia('(hover: hover)').matches) {
+    bloc.addEventListener('mouseenter', arreter);
+    bloc.addEventListener('mouseleave', demarrer);
+  }
+});
