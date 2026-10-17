@@ -1,0 +1,153 @@
+/* =========================================================
+   pages.css — finitions « hôtel haut de gamme » (chargé après style.css)
+   ========================================================= */
+
+/* Bandeau titre des pages internes (photo + titre) */
+.page-interne main{padding-top:0}
+.banniere{
+  position:relative;display:grid;place-items:center;text-align:center;color:#fff;
+  min-height:clamp(300px,46vh,440px);
+  padding:calc(var(--hauteur-entete) + 36px) 20px 56px;
+  background:linear-gradient(180deg,rgba(34,17,47,.55),rgba(34,17,47,.85)),var(--img) center/cover no-repeat;
+}
+.banniere::after{content:"";position:absolute;left:50%;bottom:0;width:1px;height:36px;background:var(--or)}
+.banniere h1{color:#fff;font-size:clamp(2.4rem,6vw,4rem);margin:0}
+.banniere .eyebrow{margin-bottom:.4em}
+
+/* Lien actif du menu */
+.menu a[aria-current="page"]:not(.menu-cta){color:#C9A24B}
+
+/* Titres de section : filet doré */
+.section h2::after{content:"";display:block;width:56px;height:2px;background:var(--or);margin:14px auto 0}
+.a-propos-texte h2::after{margin-left:0}
+.cta-pages h2::after{margin-bottom:8px}
+.banniere + .section{padding-top:clamp(48px,7vw,80px)}
+
+/* Barre de réservation superposée au hero */
+.barre-reservation{
+  position:relative;z-index:5;max-width:980px;margin:-52px auto 0;width:calc(100% - 32px);
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;align-items:end;
+  background:var(--blanc);padding:22px;border-radius:16px;border-top:4px solid var(--or);
+  box-shadow:0 24px 60px rgba(34,17,47,.28);
+}
+.barre-reservation label{display:block;font-size:.8rem;font-weight:600;color:var(--violet);margin-bottom:4px}
+.barre-reservation input,.barre-reservation select{
+  width:100%;padding:11px 12px;border:1.5px solid #ddd5e3;border-radius:10px;font:inherit;background:var(--creme);color:var(--texte)
+}
+.barre-reservation input:focus,.barre-reservation select:focus{outline:0;border-color:var(--or);box-shadow:0 0 0 3px rgba(201,162,75,.25)}
+.barre-reservation .btn{justify-content:center;white-space:nowrap}
+
+/* Hero : titre plus majestueux */
+.hero h1{letter-spacing:.01em;text-shadow:0 4px 30px rgba(0,0,0,.35)}
+.hero-overlay{padding-bottom:clamp(90px,16vh,140px)}
+.section-video-presentation{padding-top:clamp(40px,6vw,72px)}
+
+/* À propos : cadre doré décalé derrière la photo */
+.a-propos-image{position:relative;padding:0 18px 18px 0}
+.a-propos-image::before{content:"";position:absolute;inset:18px 0 0 18px;border:2px solid var(--or);border-radius:var(--rayon);z-index:0}
+.a-propos-image img{position:relative;z-index:1;border-bottom:0}
+
+/* Atouts et cartes */
+.bandeau-atouts{margin-top:0}
+.carte-pourquoi,.carte-avis{transition:transform .3s,box-shadow .3s}
+.carte-pourquoi:hover,.carte-avis:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(34,17,47,.18)}
+.carte-avis{position:relative;padding-top:42px}
+.carte-avis::before{content:"\201C";position:absolute;top:6px;left:20px;font-family:var(--police-titre);font-size:4rem;color:var(--or);line-height:1}
+.cta-pages{padding-block:clamp(64px,10vw,110px)}
+
+/* Chambres : carte plus éditoriale */
+.carte-chambre .carte-contenu h3{font-size:1.45rem}
+.carte-chambre-img::after{content:"";position:absolute;inset:auto 0 0 0;height:40%;background:linear-gradient(transparent,rgba(34,17,47,.45));pointer-events:none;z-index:1}
+
+/* Galerie : mise en page en mosaïque */
+.grille-galerie{grid-template-columns:repeat(auto-fill,minmax(260px,1fr));grid-auto-flow:dense}
+.grille-galerie .photo-galerie:nth-child(5n+1){grid-column:span 2;aspect-ratio:16/9}
+
+/* Pied de page en colonnes */
+.pied{text-align:left;padding:64px clamp(20px,5vw,48px) 28px}
+.pied-grille{max-width:var(--largeur);margin:0 auto 36px;display:grid;grid-template-columns:1.4fr 1fr 1.4fr;gap:40px}
+.pied h4{font-family:var(--police-titre);color:var(--or);font-size:1.1rem;margin:0 0 14px}
+.pied ul{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:.95rem}
+.pied a{text-decoration:none;color:rgba(255,255,255,.8);transition:color .2s}
+.pied a:hover{color:var(--or)}
+.pied .footer-petit{text-align:center;border-top:1px solid rgba(201,162,75,.25);padding-top:22px;max-width:var(--largeur);margin:0 auto}
+@media (max-width:860px){
+  .pied-grille{grid-template-columns:1fr;gap:28px}
+  .barre-reservation{margin-top:-36px}
+  .grille-galerie .photo-galerie:nth-child(5n+1){grid-column:auto;aspect-ratio:4/3}
+}
+
+
+/* =========================================================
+   Version pro : en-tête, accueil, composants des pages
+   ========================================================= */
+[hidden]{display:none!important}
+html{scroll-padding-top:90px}
+.menu{z-index:1}
+.cta-pages p{max-width:56ch;margin:0 auto 1.6em;color:rgba(255,255,255,.85)}
+.cta-pages-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* Hero : diaporama */
+.hero-img{opacity:0;transition:opacity 1.6s ease}
+.hero-img.actif{opacity:1;animation:zoom 10s ease-out both}
+@keyframes zoom{from{transform:scale(1)}to{transform:scale(1.07)}}
+
+/* Accueil : tuiles de navigation */
+.tuiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+.tuile{position:relative;aspect-ratio:3/4;border-radius:var(--rayon);overflow:hidden;display:flex;align-items:flex-end;color:#fff;text-decoration:none;isolation:isolate}
+.tuile::before{content:"";position:absolute;inset:0;background:var(--img) center/cover;transition:transform .6s;z-index:-2}
+.tuile::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 35%,rgba(34,17,47,.92));z-index:-1}
+.tuile:hover::before{transform:scale(1.07)}
+.tuile-texte{padding:22px;display:grid;gap:2px;font-size:.92rem;color:rgba(255,255,255,.85);border-left:3px solid var(--or);margin:0 0 22px 20px;padding-block:2px}
+.tuile-texte strong{font-family:var(--police-titre);font-size:1.35rem;color:#fff}
+
+/* Chambres */
+.liste-inclus{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.liste-inclus li{background:var(--blanc);padding:16px 20px 16px 48px;border-radius:12px;box-shadow:var(--ombre);position:relative;font-weight:500}
+.liste-inclus li::before{content:"";position:absolute;left:20px;top:50%;width:8px;height:14px;border:solid var(--or);border-width:0 3px 3px 0;transform:translateY(-62%) rotate(45deg)}
+.etapes{list-style:none;counter-reset:e;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px}
+.etapes li{counter-increment:e;background:var(--blanc);border-radius:var(--rayon);padding:28px 24px;box-shadow:var(--ombre);border-top:4px solid var(--or)}
+.etapes li::before{content:counter(e);display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--violet);color:var(--or);font-family:var(--police-titre);font-weight:700;margin-bottom:14px}
+.etapes h3{font-size:1.15rem}.etapes p{color:var(--gris);margin:0}
+
+/* Restaurant & Services */
+.cartes-info{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-bottom:28px}
+.grille-services{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin-bottom:36px}
+.carte-service{background:var(--blanc);border-radius:var(--rayon);padding:26px 24px;box-shadow:var(--ombre);border-left:4px solid var(--or);display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+.carte-service h3{font-size:1.2rem}.carte-service p{color:var(--gris);flex:1}
+.grille-services-photos.duo{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+
+/* Galerie : filtres */
+.filtres{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:26px}
+.filtre{font:inherit;font-weight:600;font-size:.92rem;padding:9px 22px;border-radius:999px;border:1.5px solid var(--violet);background:transparent;color:var(--violet);cursor:pointer;transition:background .2s,color .2s}
+.filtre:hover{background:rgba(61,35,82,.08)}
+.filtre.actif{background:var(--violet);color:var(--or)}
+
+/* Lightbox : navigation */
+.lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;font-size:2rem;line-height:1;cursor:pointer;transition:background .2s}
+.lightbox-nav:hover{background:var(--or);color:var(--violet-nuit)}
+.lightbox-prec{left:14px}.lightbox-suiv{right:14px}
+
+/* Retour en haut */
+.haut-page{position:fixed;left:18px;bottom:18px;width:46px;height:46px;border-radius:50%;border:2px solid var(--or);background:var(--violet);color:var(--or);font-size:1.3rem;cursor:pointer;z-index:90;box-shadow:0 8px 24px rgba(0,0,0,.3);transition:transform .2s}
+.haut-page:hover{transform:translateY(-3px)}
+
+/* Apparition douce des sections */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:none}
+
+/* Formulaires : état invalide après saisie */
+.contact-form input:user-invalid,.contact-form textarea:user-invalid,.barre-reservation input:user-invalid{border-color:#c0392b}
+.contact-form .btn{justify-self:start}
+
+/* Mobile */
+@media (max-width:860px){
+  :root{--hauteur-entete:66px}
+  .topbar{display:none}
+  .barre-in{height:66px}
+  #entete.defile .barre-in{height:58px}
+  .logo{font-size:1.15rem}
+  .menu .menu-cta{padding:12px 20px}
+  .lightbox-nav{width:42px;height:42px}
+  .haut-page{bottom:86px;left:auto;right:28px;width:40px;height:40px}
+}
